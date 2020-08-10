@@ -32,17 +32,29 @@ body {
   margin-top: 15px;
 }
 
+.ins {
+  width: 2vw;
+  height: 2vw;
+  background-color: #0099aa;
+}
+
+.tool {
+  width: 3vw;
+}
+
 #org_canvas {
   border: 1px solid #000;
   width: 70vw;
   height: 80vh;
+
+  background-color: #fff;
 }
 
 #footer {
   z-index: 1;
 
   margin: 0;
-  margin-top: 10vh;
+  margin-top: 11vh;
   width: 100vw;
   height: 5vh;
 
