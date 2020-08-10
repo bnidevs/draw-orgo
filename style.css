@@ -5,6 +5,8 @@ body {
   align-items: center;
 
   overflow: hidden;
+
+  font-family: 'Lora', serif;
 }
 
 #container {
