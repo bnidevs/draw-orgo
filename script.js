@@ -9,9 +9,12 @@ window.onload = () => {
   var grid = document.createElement("div");
   grid.className = "grid";
 
+  var grid_arr = [];
+
   var x = 2;
 
   for(var j = 0; j < 25; j++){
+    var row_arr = [];
     var row = document.createElement("div");
     row.className = "row";
 
@@ -19,10 +22,10 @@ window.onload = () => {
       row.className += " offset";
     }
 
-    for(var i = 0; i < 17; i++){
+    for(var i = 0; i < 18; i++){
       var insertion = document.createElement("div");
       if(i % 3 == x){
-        insertion.className = "blank_ins";
+        insertion.className = "blank_ins brdr-no";
       }else{
         insertion.className = "ins brdr-no";
         insertion.ondragenter = allowDrop;
@@ -30,8 +33,11 @@ window.onload = () => {
         insertion.ondragover = allowDrop;
         insertion.setAttribute("ondrop", "drop(event);");
       }
+      row_arr.push(insertion);
       row.appendChild(insertion);
     }
+
+    grid_arr.push(row_arr);
 
     if(x == 2){
       x = 1;
@@ -42,9 +48,85 @@ window.onload = () => {
     grid.appendChild(row);
   }
   org_canvas.appendChild(grid);
+
+  var lines = document.createElement("div");
+  var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.id = "lines";
+  svg.setAttribute('width','100vw');
+  svg.setAttribute('height','100vh');
+
+  for(var i = 0; i < grid_arr.length; i++){
+    for(var j = 0; j < grid_arr[0].length - 1; j++){
+      if(!grid_arr[i][j].classList.contains("blank_ins") && !grid_arr[i][j+1].classList.contains("blank_ins")){
+        var line = document.createElementNS('http://www.w3.org/2000/svg', "line");
+        var coords_begin = getCoords(grid_arr[i][j]), coords_end = getCoords(grid_arr[i][j+1]);
+        line.setAttribute('x1', coords_begin[0]);
+        line.setAttribute('y1', coords_begin[1]);
+        line.setAttribute('x2', coords_end[0]);
+        line.setAttribute('y2', coords_end[1]);
+        line.setAttribute('stroke', 'black');
+        line.setAttribute('stroke-opacity', '0.1');
+        line.setAttribute('stroke-width', '2');
+        svg.appendChild(line);
+      }
+    }
+  }
+
+  for(var i = 1; i < grid_arr.length; i++){
+    for(var j = 0; j < grid_arr[0].length; j++){
+      if(!grid_arr[i][j].classList.contains("blank_ins")){
+        if(j > 0 && !grid_arr[i-1][j-1].classList.contains("blank_ins") && i % 2 == 1){
+          var line = document.createElementNS('http://www.w3.org/2000/svg', "line");
+          var coords_begin = getCoords(grid_arr[i][j]), coords_end = getCoords(grid_arr[i-1][j-1]);
+          line.setAttribute('x1', coords_begin[0]);
+          line.setAttribute('y1', coords_begin[1]);
+          line.setAttribute('x2', coords_end[0]);
+          line.setAttribute('y2', coords_end[1]);
+          line.setAttribute('stroke', 'black');
+          line.setAttribute('stroke-opacity', '0.1');
+          line.setAttribute('stroke-width', '2');
+          svg.appendChild(line);
+        }
+
+        if(i % 2 == 0 && !grid_arr[i-1][j+1].classList.contains("blank_ins")){
+          var line = document.createElementNS('http://www.w3.org/2000/svg', "line");
+          var coords_begin = getCoords(grid_arr[i][j]), coords_end = getCoords(grid_arr[i-1][j+1]);
+          line.setAttribute('x1', coords_begin[0]);
+          line.setAttribute('y1', coords_begin[1]);
+          line.setAttribute('x2', coords_end[0]);
+          line.setAttribute('y2', coords_end[1]);
+          line.setAttribute('stroke', 'black');
+          line.setAttribute('stroke-opacity', '0.1');
+          line.setAttribute('stroke-width', '2');
+          svg.appendChild(line);
+        }
+
+        if(!grid_arr[i-1][j].classList.contains("blank_ins")){
+          var line = document.createElementNS('http://www.w3.org/2000/svg', "line");
+          var coords_begin = getCoords(grid_arr[i][j]), coords_end = getCoords(grid_arr[i-1][j]);
+          line.setAttribute('x1', coords_begin[0]);
+          line.setAttribute('y1', coords_begin[1]);
+          line.setAttribute('x2', coords_end[0]);
+          line.setAttribute('y2', coords_end[1]);
+          line.setAttribute('stroke', 'black');
+          line.setAttribute('stroke-opacity', '0.1');
+          line.setAttribute('stroke-width', '2');
+          svg.appendChild(line);
+        }
+      }
+    }
+  }
+
+  org_canvas.append(svg);
 }
 
 // document.getElementById("org_canvas").addEventListener("")
+
+var getCoords = (box) => {
+  var boundingRect = box.getBoundingClientRect();
+
+  return [(boundingRect.left + boundingRect.right) / 2, (boundingRect.top + boundingRect.bottom) / 2]
+}
 
 var allowDrop = (ev) => {
   ev.preventDefault();
