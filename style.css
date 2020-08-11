@@ -40,6 +40,8 @@ body {
   transform: rotate(-30deg);
 
   border-radius: 50%;
+
+  text-align: center;
 }
 
 .blank_ins {
@@ -94,6 +96,8 @@ body {
   height: 80vh;
 
   background-color: #fff;
+
+  overflow: hidden;
 }
 
 #footer {
