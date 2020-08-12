@@ -10,6 +10,7 @@ window.onload = () => {
   grid.className = "grid";
 
   var grid_arr = [];
+  var cnxns = {};
 
   var x = 2;
 
@@ -86,6 +87,8 @@ window.onload = () => {
           line.setAttribute('stroke-opacity', '0.1');
           line.setAttribute('stroke-width', '2');
           svg.appendChild(line);
+
+          cnxns[hashCoords(i,j,i-1,j-1)] = line;
         }
 
         if(i % 2 == 0 && !grid_arr[i-1][j+1].classList.contains("blank_ins")){
@@ -99,6 +102,8 @@ window.onload = () => {
           line.setAttribute('stroke-opacity', '0.1');
           line.setAttribute('stroke-width', '2');
           svg.appendChild(line);
+
+          cnxns[hashCoords(i,j,i-1,j+1)] = line;
         }
 
         if(!grid_arr[i-1][j].classList.contains("blank_ins")){
@@ -112,12 +117,34 @@ window.onload = () => {
           line.setAttribute('stroke-opacity', '0.1');
           line.setAttribute('stroke-width', '2');
           svg.appendChild(line);
+
+          cnxns[hashCoords(i,j,i-1,j)] = line;
         }
       }
     }
   }
 
   org_canvas.append(svg);
+
+  // var mutObs = new MutationObserver(function(mutations){
+  //   for(var i = 1; i < grid_arr.length; i++){
+  //     for(var j = 0; j < grid_arr[0].length; j++){
+  //       var need_to_check = [[i,j,i-1,j], [i,j,i-1,j+1], [i,j,i-1,j-1]];
+  //       for(var k = 0; k < 3; i++){
+  //         if(hashCoords(need_to_check[k]) in cnxns){
+  //           var first = grid_arr[need_to_check[k][0]][need_to_check[k][1]];
+  //           var second = grid_arr[need_to_check[k][2]][need_to_check[k][3]];
+  //
+  //           if(!(first.innerHTML == "" || null) && !(second.innerHTML == "" || null)){
+  //             cnxns[hashCoords(need_to_check[k])].setAttribute('stroke-opacity', '1');
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // });
+  //
+  // mutObs.observe(document.getElementsByClassName("grid")[0], {childList: true, subtree: true});
 }
 
 // document.getElementById("org_canvas").addEventListener("")
@@ -126,6 +153,10 @@ var getCoords = (box) => {
   var boundingRect = box.getBoundingClientRect();
 
   return [(boundingRect.left + boundingRect.right) / 2, (boundingRect.top + boundingRect.bottom) / 2]
+}
+
+var hashCoords = (w, x, y, z) => {
+  return "" + w + "," + x + "x" + y + "," + z;
 }
 
 var allowDrop = (ev) => {
