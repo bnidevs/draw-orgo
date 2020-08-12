@@ -1,4 +1,6 @@
 var selected = null;
+var cnxns = [];
+var grid_arr = [];
 
 window.onload = () => {
   elements = document.getElementsByClassName("element");
@@ -10,9 +12,6 @@ window.onload = () => {
   org_canvas = document.getElementById("org_canvas");
   var grid = document.createElement("div");
   grid.className = "grid";
-
-  var grid_arr = [];
-  var cnxns = [];
 
   var x = 2;
 
@@ -73,19 +72,19 @@ window.onload = () => {
         line.setAttribute('stroke-width', '2');
         svg.appendChild(line);
 
+        const first = grid_arr[i][j];
+        const second = grid_arr[i][j+1];
+        const connecting = line;
         cnxns.push(new MutationObserver(function(mutations){
-          const first = grid_arr[i][j];
-          const second = grid_arr[i][j+1];
-          const connecting = line;
           if((first.innerHTML != "" && first.innerHTML != null) && (second.innerHTML != "" && second.innerHTML != null)){
             connecting.setAttribute('stroke-opacity', '1');
           }else{
             connecting.setAttribute('stroke-opacity', '0.1');
           }
-          console.log("whoa");
+          console.log(line);
         }));
-        cnxns[cnxns.length - 1].observe(grid_arr[i][j], {characterData: true});
-        cnxns[cnxns.length - 1].observe(grid_arr[i][j+1], {characterData: true});
+        cnxns[cnxns.length - 1].observe(grid_arr[i][j], {characterData: true, childList: true, subtree: true});
+        cnxns[cnxns.length - 1].observe(grid_arr[i][j+1], {characterData: true, childList: true, subtree: true});
       }
     }
   }
@@ -105,7 +104,19 @@ window.onload = () => {
           line.setAttribute('stroke-width', '2');
           svg.appendChild(line);
 
-          cnxns[hashCoords(i,j,i-1,j-1)] = line;
+          const first = grid_arr[i][j];
+          const second = grid_arr[i-1][j-1];
+          const connecting = line;
+          cnxns.push(new MutationObserver(function(mutations){
+            if((first.innerHTML != "" && first.innerHTML != null) && (second.innerHTML != "" && second.innerHTML != null)){
+              connecting.setAttribute('stroke-opacity', '1');
+            }else{
+              connecting.setAttribute('stroke-opacity', '0.1');
+            }
+            console.log(line);
+          }));
+          cnxns[cnxns.length - 1].observe(grid_arr[i][j], {characterData: true, childList: true, subtree: true});
+          cnxns[cnxns.length - 1].observe(grid_arr[i-1][j-1], {characterData: true, childList: true, subtree: true});
         }
 
         if(i % 2 == 0 && !grid_arr[i-1][j+1].classList.contains("blank_ins")){
@@ -120,7 +131,19 @@ window.onload = () => {
           line.setAttribute('stroke-width', '2');
           svg.appendChild(line);
 
-          cnxns[hashCoords(i,j,i-1,j+1)] = line;
+          const first = grid_arr[i][j];
+          const second = grid_arr[i-1][j+1];
+          const connecting = line;
+          cnxns.push(new MutationObserver(function(mutations){
+            if((first.innerHTML != "" && first.innerHTML != null) && (second.innerHTML != "" && second.innerHTML != null)){
+              connecting.setAttribute('stroke-opacity', '1');
+            }else{
+              connecting.setAttribute('stroke-opacity', '0.1');
+            }
+            console.log(line);
+          }));
+          cnxns[cnxns.length - 1].observe(grid_arr[i][j], {characterData: true, childList: true, subtree: true});
+          cnxns[cnxns.length - 1].observe(grid_arr[i-1][j+1], {characterData: true, childList: true, subtree: true});
         }
 
         if(!grid_arr[i-1][j].classList.contains("blank_ins")){
@@ -135,7 +158,19 @@ window.onload = () => {
           line.setAttribute('stroke-width', '2');
           svg.appendChild(line);
 
-          cnxns[hashCoords(i,j,i-1,j)] = line;
+          const first = grid_arr[i][j];
+          const second = grid_arr[i-1][j];
+          const connecting = line;
+          cnxns.push(new MutationObserver(function(mutations){
+            if((first.innerHTML != "" && first.innerHTML != null) && (second.innerHTML != "" && second.innerHTML != null)){
+              connecting.setAttribute('stroke-opacity', '1');
+            }else{
+              connecting.setAttribute('stroke-opacity', '0.1');
+            }
+            console.log(line);
+          }));
+          cnxns[cnxns.length - 1].observe(grid_arr[i][j], {characterData: true, childList: true, subtree: true});
+          cnxns[cnxns.length - 1].observe(grid_arr[i-1][j], {characterData: true, childList: true, subtree: true});
         }
       }
     }
