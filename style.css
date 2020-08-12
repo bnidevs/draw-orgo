@@ -120,6 +120,6 @@ body {
 
 #lines {
   z-index: -1;
-  margin-top: -98.4vh;
+  margin-top: calc(-1200px - 6vh);
   margin-left: -20.2vw;
 }
