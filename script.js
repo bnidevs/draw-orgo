@@ -72,6 +72,14 @@ window.onload = () => {
         line.setAttribute('stroke-width', '2');
         svg.appendChild(line);
 
+        // var bondlevel = document.createElementNS('http://www.w3.org/2000/svg', "text");
+        // bondlevel.setAttribute('x', (coords_begin[0] + coords_end[0]) / 2 - 5);
+        // bondlevel.setAttribute('y', (coords_begin[1] + coords_end[1]) / 2 + 5);
+        // bondlevel.style.font = "bold 15px sans-serif";
+        // bondlevel.style.fill = "transparent";
+        // bondlevel.innerHTML = "1";
+        // svg.appendChild(bondlevel);
+
         const first = grid_arr[i][j];
         const second = grid_arr[i][j+1];
         const connecting = line;
@@ -81,7 +89,6 @@ window.onload = () => {
           }else{
             connecting.setAttribute('stroke-opacity', '0.1');
           }
-          console.log(line);
         }));
         cnxns[cnxns.length - 1].observe(grid_arr[i][j], {characterData: true, childList: true, subtree: true});
         cnxns[cnxns.length - 1].observe(grid_arr[i][j+1], {characterData: true, childList: true, subtree: true});
@@ -104,6 +111,14 @@ window.onload = () => {
           line.setAttribute('stroke-width', '2');
           svg.appendChild(line);
 
+          // var bondlevel = document.createElementNS('http://www.w3.org/2000/svg', "text");
+          // bondlevel.setAttribute('x', (coords_begin[0] + coords_end[0]) / 2 - 5);
+          // bondlevel.setAttribute('y', (coords_begin[1] + coords_end[1]) / 2 + 5);
+          // bondlevel.style.font = "bold 15px sans-serif";
+          // bondlevel.style.fill = "transparent";
+          // bondlevel.innerHTML = "1";
+          // svg.appendChild(bondlevel);
+
           const first = grid_arr[i][j];
           const second = grid_arr[i-1][j-1];
           const connecting = line;
@@ -113,7 +128,6 @@ window.onload = () => {
             }else{
               connecting.setAttribute('stroke-opacity', '0.1');
             }
-            console.log(line);
           }));
           cnxns[cnxns.length - 1].observe(grid_arr[i][j], {characterData: true, childList: true, subtree: true});
           cnxns[cnxns.length - 1].observe(grid_arr[i-1][j-1], {characterData: true, childList: true, subtree: true});
@@ -131,6 +145,14 @@ window.onload = () => {
           line.setAttribute('stroke-width', '2');
           svg.appendChild(line);
 
+          // var bondlevel = document.createElementNS('http://www.w3.org/2000/svg', "text");
+          // bondlevel.setAttribute('x', (coords_begin[0] + coords_end[0]) / 2 - 5);
+          // bondlevel.setAttribute('y', (coords_begin[1] + coords_end[1]) / 2 + 5);
+          // bondlevel.style.font = "bold 15px sans-serif";
+          // bondlevel.style.fill = "transparent";
+          // bondlevel.innerHTML = "1";
+          // svg.appendChild(bondlevel);
+
           const first = grid_arr[i][j];
           const second = grid_arr[i-1][j+1];
           const connecting = line;
@@ -140,7 +162,6 @@ window.onload = () => {
             }else{
               connecting.setAttribute('stroke-opacity', '0.1');
             }
-            console.log(line);
           }));
           cnxns[cnxns.length - 1].observe(grid_arr[i][j], {characterData: true, childList: true, subtree: true});
           cnxns[cnxns.length - 1].observe(grid_arr[i-1][j+1], {characterData: true, childList: true, subtree: true});
@@ -158,6 +179,14 @@ window.onload = () => {
           line.setAttribute('stroke-width', '2');
           svg.appendChild(line);
 
+          // var bondlevel = document.createElementNS('http://www.w3.org/2000/svg', "text");
+          // bondlevel.setAttribute('x', (coords_begin[0] + coords_end[0]) / 2 - 5);
+          // bondlevel.setAttribute('y', (coords_begin[1] + coords_end[1]) / 2 + 5);
+          // bondlevel.style.font = "bold 15px sans-serif";
+          // bondlevel.style.fill = "transparent";
+          // bondlevel.innerHTML = "1";
+          // svg.appendChild(bondlevel);
+
           const first = grid_arr[i][j];
           const second = grid_arr[i-1][j];
           const connecting = line;
@@ -167,7 +196,6 @@ window.onload = () => {
             }else{
               connecting.setAttribute('stroke-opacity', '0.1');
             }
-            console.log(line);
           }));
           cnxns[cnxns.length - 1].observe(grid_arr[i][j], {characterData: true, childList: true, subtree: true});
           cnxns[cnxns.length - 1].observe(grid_arr[i-1][j], {characterData: true, childList: true, subtree: true});
@@ -179,6 +207,9 @@ window.onload = () => {
   org_canvas.append(svg);
 
   document.addEventListener("keyup", del);
+
+  document.getElementById("print_button").addEventListener("click", print);
+  document.getElementById("save_button").addEventListener("click", save);
 }
 
 // document.getElementById("org_canvas").addEventListener("")
@@ -210,6 +241,7 @@ var del = (ev) => {
   if(ev.key === 'Backspace' && selected != null){
     selected.innerText = "";
     selected.classList.remove("brdr-hl");
+    selected.classList.remove("print");
     selected = null;
   }
 }
@@ -234,4 +266,42 @@ var drop = (ev) => {
   if(ev.target.classList.contains('brdr-hl')){
     ev.target.classList.remove('brdr-hl');
   }
+}
+
+var print = (ev) => {
+  // var w = window.open();
+  // w.document.write('<link rel="stylesheet" href="style.css">');
+  // w.document.write(document.getElementById("org_canvas").innerHTML);
+  // var lines = w.document.getElementsByTagName("line");
+  // for(var i = 0; i < lines.length; i++){
+  //   if(lines[i].getAttribute("stroke-opacity").toString() != '1'){
+  //     lines[i].setAttribute("stroke-opacity", '0.1');
+  //   }
+  // }
+}
+
+var save = (ev) => {
+  var elem = document.createElement('a');
+
+  var saved_text = '';
+
+  for(var i = 0; i < grid_arr.length; i++){
+    for(var j = 0; j < grid_arr[0].length; j++){
+      if(grid_arr[i][j].innerHTML != "" && grid_arr[i][j].innerHTML != null){
+        saved_text += grid_arr[i][j].innerHTML;
+      }else{
+        saved_text += ' ';
+      }
+      saved_text += ',';
+    }
+  }
+
+  saved_text = saved_text.slice(0, -1);
+
+  elem.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(saved_text));
+  elem.setAttribute('download', 'compound.orgodraw');
+  elem.style.display = 'none';
+  document.body.appendChild(elem);
+  elem.click();
+  document.body.removeChild(elem);
 }
