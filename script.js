@@ -72,14 +72,6 @@ window.onload = () => {
         line.setAttribute('stroke-width', '2');
         svg.appendChild(line);
 
-        // var bondlevel = document.createElementNS('http://www.w3.org/2000/svg', "text");
-        // bondlevel.setAttribute('x', (coords_begin[0] + coords_end[0]) / 2 - 5);
-        // bondlevel.setAttribute('y', (coords_begin[1] + coords_end[1]) / 2 + 5);
-        // bondlevel.style.font = "bold 15px sans-serif";
-        // bondlevel.style.fill = "transparent";
-        // bondlevel.innerHTML = "1";
-        // svg.appendChild(bondlevel);
-
         const first = grid_arr[i][j];
         const second = grid_arr[i][j+1];
         const connecting = line;
@@ -111,14 +103,6 @@ window.onload = () => {
           line.setAttribute('stroke-width', '2');
           svg.appendChild(line);
 
-          // var bondlevel = document.createElementNS('http://www.w3.org/2000/svg', "text");
-          // bondlevel.setAttribute('x', (coords_begin[0] + coords_end[0]) / 2 - 5);
-          // bondlevel.setAttribute('y', (coords_begin[1] + coords_end[1]) / 2 + 5);
-          // bondlevel.style.font = "bold 15px sans-serif";
-          // bondlevel.style.fill = "transparent";
-          // bondlevel.innerHTML = "1";
-          // svg.appendChild(bondlevel);
-
           const first = grid_arr[i][j];
           const second = grid_arr[i-1][j-1];
           const connecting = line;
@@ -145,14 +129,6 @@ window.onload = () => {
           line.setAttribute('stroke-width', '2');
           svg.appendChild(line);
 
-          // var bondlevel = document.createElementNS('http://www.w3.org/2000/svg', "text");
-          // bondlevel.setAttribute('x', (coords_begin[0] + coords_end[0]) / 2 - 5);
-          // bondlevel.setAttribute('y', (coords_begin[1] + coords_end[1]) / 2 + 5);
-          // bondlevel.style.font = "bold 15px sans-serif";
-          // bondlevel.style.fill = "transparent";
-          // bondlevel.innerHTML = "1";
-          // svg.appendChild(bondlevel);
-
           const first = grid_arr[i][j];
           const second = grid_arr[i-1][j+1];
           const connecting = line;
@@ -178,14 +154,6 @@ window.onload = () => {
           line.setAttribute('stroke-opacity', '0.1');
           line.setAttribute('stroke-width', '2');
           svg.appendChild(line);
-
-          // var bondlevel = document.createElementNS('http://www.w3.org/2000/svg', "text");
-          // bondlevel.setAttribute('x', (coords_begin[0] + coords_end[0]) / 2 - 5);
-          // bondlevel.setAttribute('y', (coords_begin[1] + coords_end[1]) / 2 + 5);
-          // bondlevel.style.font = "bold 15px sans-serif";
-          // bondlevel.style.fill = "transparent";
-          // bondlevel.innerHTML = "1";
-          // svg.appendChild(bondlevel);
 
           const first = grid_arr[i][j];
           const second = grid_arr[i-1][j];
